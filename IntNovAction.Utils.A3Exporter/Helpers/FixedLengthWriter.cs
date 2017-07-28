@@ -10,17 +10,17 @@ using System.Text;
 
 namespace IntNovAction.Utils.A3Exporter.Helpers
 {
-    internal static class FixedLengthWriter
+    internal class FixedLengthWriter
     {
-        private static Dictionary<string, FixedLengthClassInfo> _fixedLengthClassDictionary = new Dictionary<string, FixedLengthClassInfo>();        
+        private Dictionary<string, FixedLengthClassInfo> _fixedLengthClassDictionary = new Dictionary<string, FixedLengthClassInfo>();        
 
-        static FixedLengthWriter()
+        public FixedLengthWriter()
         {
             var formattersDictionary = GetFormatters();
             _fixedLengthClassDictionary = GetFixedLengthClassesInfo(formattersDictionary);
         }
 
-        internal static string WriteLine<T>(T data) where T : A3ModelBase
+        internal string WriteLine<T>(T data) where T : A3ModelBase
         {
             var result = string.Empty;
 
@@ -44,7 +44,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return result;
         }
 
-        private static byte[] GetEmptyBuffer(FixedLengthClassInfo fixedLengthClass)
+        private byte[] GetEmptyBuffer(FixedLengthClassInfo fixedLengthClass)
         {
             byte[] buffer = new byte[fixedLengthClass.LineLength];
             for (var i = 0; i < buffer.Length; i++)
@@ -55,7 +55,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return buffer;
         }
 
-        private static Dictionary<TypeCode, Func<object, FormatType, string>> GetFormatters()
+        private Dictionary<TypeCode, Func<object, FormatType, string>> GetFormatters()
         {
             var a3DataFormatterType = typeof(IA3DataFormatter);
 
@@ -67,7 +67,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return formattersDictionary;
         }
 
-        private static Dictionary<string, FixedLengthClassInfo> GetFixedLengthClassesInfo(Dictionary<TypeCode, Func<object, FormatType, string>> formatters)
+        private Dictionary<string, FixedLengthClassInfo> GetFixedLengthClassesInfo(Dictionary<TypeCode, Func<object, FormatType, string>> formatters)
         {
             var a3ModelType = typeof(A3ModelBase);
 
@@ -79,7 +79,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return classesInfoDictionary;
         }
 
-        private static FixedLengthClassInfo GetFixedLengthClassInfo(Type a3ModelType, Dictionary<TypeCode, Func<object, FormatType, string>> formatters)
+        private FixedLengthClassInfo GetFixedLengthClassInfo(Type a3ModelType, Dictionary<TypeCode, Func<object, FormatType, string>> formatters)
         {
             var fixedLengthClassInfo = new FixedLengthClassInfo();
 
@@ -116,7 +116,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return fixedLengthClassInfo;
         }
 
-        private static string DefaultStringFormatter(object value, FormatType formatType)
+        private string DefaultStringFormatter(object value, FormatType formatType)
         {
             if (value == null)
             {

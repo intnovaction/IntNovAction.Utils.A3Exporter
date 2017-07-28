@@ -9,6 +9,14 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
 {
     public class FixedWriterTests
     {
+
+        private FixedLengthWriter _writer;
+
+        public FixedWriterTests()
+        {
+            _writer = new FixedLengthWriter();
+        }
+
         [Fact]
         public void CheckWriter_CabeceraFactura()
         {
@@ -24,7 +32,8 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
             };  
 
             var expectedResult = "300135201704261430010370000Sociedad Cooperativa TEST1234 12017/1002 IFactura: 2017/1002            +0000004867.23                                                                                                                                           ES";
-            var strResult = FixedLengthWriter.WriteLine(cabeceraFactura);
+
+            var strResult = _writer.WriteLine(cabeceraFactura);
 
             strResult.Should().BeEquivalentTo(expectedResult);
             
@@ -51,7 +60,8 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
             };
 
             var expectedResult = "300135201704269705100020000SERVICIOS JURIDICOS TEST123   C2017/1002 M(HN)Factura: 2017/1002        01+0000004022.5021.00+0000000844.7300.00+0000000000.0000.00+0000000000.0001S                                                                            NES";
-            var strResult = FixedLengthWriter.WriteLine(lineaFactura);
+
+            var strResult = _writer.WriteLine(lineaFactura);
 
             strResult.Should().BeEquivalentTo(expectedResult);
 
@@ -77,7 +87,7 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
             };
 
             var expectedResult = "300135201704269561010370000Sociedad Cooperativa TEST1234 A2017/1002 MProvisiones de: 2017/1002     01+0000001763.8700.00+0000000000.0000.00+0000000000.0000.00+0000000000.0007N                                                                            NES";
-            var strResult = FixedLengthWriter.WriteLine(lineaFactura);
+            var strResult = _writer.WriteLine(lineaFactura);
 
             strResult.Should().BeEquivalentTo(expectedResult);
 
@@ -103,7 +113,7 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
             };
 
             var expectedResult = "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                                  ES";
-            var strResult = FixedLengthWriter.WriteLine(cuentaProveedor);
+            var strResult = _writer.WriteLine(cuentaProveedor);
 
             strResult.Should().BeEquivalentTo(expectedResult);
 

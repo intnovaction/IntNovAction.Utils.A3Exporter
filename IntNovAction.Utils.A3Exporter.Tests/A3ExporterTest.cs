@@ -8,6 +8,8 @@ namespace IntNovAction.Utils.A3Exporter.Tests
 {
     public class A3ExporterTest
     {
+        
+
         [Fact]
         public void A3Exporter_Factura()
         {
@@ -83,7 +85,8 @@ namespace IntNovAction.Utils.A3Exporter.Tests
                 "300135201704269430010370000Test Nombre cuenta            C2017/1002 URegularizacion de: 2017/1002  01+0000001113.8700.00+0000000000.0000.00+0000000000.0000.00+0000000000.0007N                                                                            NES"
             };
 
-            var results = A3Exporter.ExportarFactura(factura);
+            var exporter = new A3Exporter();
+            var results = exporter.ExportarFactura(factura);
 
             results.Count.Should().Be(5);
             results[0].Should().BeEquivalentTo(expectedResults[0]);
@@ -115,7 +118,9 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             };
 
             var expectedResult = "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                                  ES";
-            var strResult = A3Exporter.ExportarCuentaProveedor(cuentaProveedor);
+
+            var exporter = new A3Exporter();
+            var strResult = exporter.ExportarCuentaProveedor(cuentaProveedor);
 
             strResult.Should().BeEquivalentTo(expectedResult);
         }
