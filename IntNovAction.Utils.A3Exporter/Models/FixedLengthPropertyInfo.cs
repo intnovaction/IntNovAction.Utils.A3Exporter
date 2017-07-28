@@ -3,21 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using IntNovAction.Utils.A3Exporter.DataFormatters;
+using IntNovAction.Utils.A3Exporter.A3Models;
 
 namespace IntNovAction.Utils.A3Exporter.Models
 {
+    /// <summary>
+    /// Contiene los datos necesarios para el formateo de una propiedad en texto para el fichero A3
+    /// </summary>
     internal class FixedLengthPropertyInfo
     {
-        public PropertyInfo PropertyInfo { get; set; }
+        internal PropertyInfo PropertyInfo { get; set; }
 
-        public FixedLengthAttribute FixedLengthInfo { get; set; }
+        internal FixedLengthAttribute FixedLengthInfo { get; set; }
 
-        public Func<object, string> StringValueFunction { get; set; }
+        internal Func<object, FormatType, string> StringValueFunction { get; set; }
 
-        public void CopyToBuffer<T>(T data, byte[] buffer)
+        internal void CopyToBuffer<T>(T data, byte[] buffer)
         {
             var value = this.PropertyInfo.GetValue(data);
-            var strValue = this.StringValueFunction(value);
+            var strValue = this.StringValueFunction(value, this.FixedLengthInfo.FormatType);
 
             if (this.FixedLengthInfo.Length < strValue.Length)
             {

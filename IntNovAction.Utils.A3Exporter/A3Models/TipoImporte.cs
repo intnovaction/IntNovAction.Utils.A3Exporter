@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace IntNovAction.Utils.A3Exporter.A3Models
 {
     /// <summary>
-    /// Tipos de factura de A3
+    /// Tipos de importe
     /// </summary>
-    public enum TipoFactura
+    public enum TipoImporte
     {
-        Ventas = 1,
-        Compras = 2,
-        BienesInversion = 3
+        [Description("C")]
+        Cargo = 1,
+        [Description("A")]
+        Abono = 2
     }
 }

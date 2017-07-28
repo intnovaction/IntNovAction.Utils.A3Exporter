@@ -4,10 +4,13 @@ using System.Text;
 
 namespace IntNovAction.Utils.A3Exporter.Models
 {
+    /// <summary>
+    /// Contiene la información de una clase que se puede formatear como una línea de fichero A3
+    /// </summary>
     internal class FixedLengthClassInfo
     {
-        public int LineLength { get; set; }
+        internal int LineLength { get; set; }
 
-        public List<FixedLengthPropertyInfo> Properties { get; set; } = new List<FixedLengthPropertyInfo>();
+        internal List<FixedLengthPropertyInfo> Properties { get; set; } = new List<FixedLengthPropertyInfo>();
     }
 }

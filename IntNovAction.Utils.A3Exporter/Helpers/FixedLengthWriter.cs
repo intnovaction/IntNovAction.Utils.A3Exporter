@@ -10,7 +10,7 @@ using System.Text;
 
 namespace IntNovAction.Utils.A3Exporter.Helpers
 {
-    public static class FixedLengthWriter
+    internal static class FixedLengthWriter
     {
         private static Dictionary<string, FixedLengthClassInfo> _fixedLengthClassDictionary = new Dictionary<string, FixedLengthClassInfo>();        
 
@@ -55,7 +55,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return buffer;
         }
 
-        private static Dictionary<TypeCode, Func<object, string>> GetFormatters()
+        private static Dictionary<TypeCode, Func<object, FormatType, string>> GetFormatters()
         {
             var a3DataFormatterType = typeof(IA3DataFormatter);
 
@@ -67,7 +67,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return formattersDictionary;
         }
 
-        private static Dictionary<string, FixedLengthClassInfo> GetFixedLengthClassesInfo(Dictionary<TypeCode, Func<object, string>> formatters)
+        private static Dictionary<string, FixedLengthClassInfo> GetFixedLengthClassesInfo(Dictionary<TypeCode, Func<object, FormatType, string>> formatters)
         {
             var a3ModelType = typeof(A3ModelBase);
 
@@ -79,7 +79,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return classesInfoDictionary;
         }
 
-        private static FixedLengthClassInfo GetFixedLengthClassInfo(Type a3ModelType, Dictionary<TypeCode, Func<object, string>> formatters)
+        private static FixedLengthClassInfo GetFixedLengthClassInfo(Type a3ModelType, Dictionary<TypeCode, Func<object, FormatType, string>> formatters)
         {
             var fixedLengthClassInfo = new FixedLengthClassInfo();
 
@@ -116,8 +116,12 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             return fixedLengthClassInfo;
         }
 
-        private static string DefaultStringFormatter(object value)
+        private static string DefaultStringFormatter(object value, FormatType formatType)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
             return value.ToString();
         }
 

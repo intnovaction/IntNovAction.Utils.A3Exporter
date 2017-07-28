@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IntNovAction.Utils.A3Exporter.A3Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +9,6 @@ namespace IntNovAction.Utils.A3Exporter.DataFormatters
     {
         TypeCode TypeCode { get; }
 
-        Func<object, string> Formatter { get; }
+        Func<object, FormatType, string> Formatter { get; }
     }
 }

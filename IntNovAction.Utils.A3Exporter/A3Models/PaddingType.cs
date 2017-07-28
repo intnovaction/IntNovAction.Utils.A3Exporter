@@ -5,12 +5,11 @@ using System.Text;
 namespace IntNovAction.Utils.A3Exporter.A3Models
 {
     /// <summary>
-    /// Tipos de factura de A3
+    /// Tipo de padding: rellenar caracteres a izquierda o derecha
     /// </summary>
-    public enum TipoFactura
+    public enum PaddingType
     {
-        Ventas = 1,
-        Compras = 2,
-        BienesInversion = 3
+        Left = 1,
+        Right = 2
     }
 }
