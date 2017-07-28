@@ -1,5 +1,4 @@
 # IntNovAction.Utils.A3Exporter
-(https://www.nuget.org/packages/IntNovAction.Utils.PdfGenerator/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Utilidad para extraer las líneas utilizadas en el fichero de A3 para facturas y cuentas de proveedores
