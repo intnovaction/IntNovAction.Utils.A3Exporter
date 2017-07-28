@@ -1,4 +1,5 @@
 using FluentAssertions;
+using IntNovAction.Utils.A3Exporter.DataFormatters;
 using IntNovAction.Utils.A3Exporter.Helpers;
 using IntNovAction.Utils.A3Exporter.Models;
 using System;
@@ -14,7 +15,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             var date = new DateTime(2009, 4, 26);
             var expectedResult = "20090426";
 
-            var strDate = date.ToA3String();
+            var strDate = new A3DateTimeDataFormatter().Formatter(date);
             strDate.Should().BeEquivalentTo(expectedResult);
             
         }
@@ -25,7 +26,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             decimal amount = 12500.5M;
             var expectedResult = "+0000012500.50";
 
-            var strAmount = amount.ToA3String();
+            var strAmount = new A3DecimalDataFormatter().Formatter(amount);
             strAmount.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -35,7 +36,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             decimal amount = -12500.5M;
             var expectedResult = "-0000012500.50";
 
-            var strAmount = amount.ToA3String();
+            var strAmount = new A3DecimalDataFormatter().Formatter(amount);
             strAmount.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -45,7 +46,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             decimal amount = -12500;
             var expectedResult = "-0000012500.00";
 
-            var strAmount = amount.ToA3String();
+            var strAmount = new A3DecimalDataFormatter().Formatter(amount);
             strAmount.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -55,7 +56,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             bool boolValue = true;
             var expectedResult = "S";
 
-            var strBool = boolValue.ToA3String();
+            var strBool = new A3BoolDataFormatter().Formatter(boolValue);
             strBool.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -65,7 +66,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             bool boolValue = false;
             var expectedResult = "N";
 
-            var strBool = boolValue.ToA3String();
+            var strBool = new A3BoolDataFormatter().Formatter(boolValue);
             strBool.Should().BeEquivalentTo(expectedResult);
         }
     }

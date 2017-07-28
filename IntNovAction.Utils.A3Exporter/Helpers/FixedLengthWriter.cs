@@ -1,4 +1,7 @@
-﻿using IntNovAction.Utils.A3Exporter.Attributes;
+﻿using IntNovAction.Utils.A3Exporter.A3Models;
+using IntNovAction.Utils.A3Exporter.Attributes;
+using IntNovAction.Utils.A3Exporter.DataFormatters;
+using IntNovAction.Utils.A3Exporter.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,46 +12,78 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
 {
     public static class FixedLengthWriter
     {
-        private static Dictionary<string, FixedLengthClassInfo> FixedLengthClassDictionary = new Dictionary<string, FixedLengthClassInfo>();
+        private static Dictionary<string, FixedLengthClassInfo> _fixedLengthClassDictionary = new Dictionary<string, FixedLengthClassInfo>();        
 
-        public static string WriteLine<T>(T data)
+        static FixedLengthWriter()
+        {
+            var formattersDictionary = GetFormatters();
+            _fixedLengthClassDictionary = GetFixedLengthClassesInfo(formattersDictionary);
+        }
+
+        internal static string WriteLine<T>(T data) where T : A3ModelBase
         {
             var result = string.Empty;
 
             var typeName = typeof(T).Name;
 
-            if (!FixedLengthClassDictionary.ContainsKey(typeName))
-            {
-                FixedLengthClassDictionary.Add(typeName, GetFixedLengthClassInfo(data));
-            }
-
-            var fixedLengthClass = FixedLengthClassDictionary[typeName];
+            var fixedLengthClass = _fixedLengthClassDictionary[typeName];
 
             if (fixedLengthClass.LineLength == 0)
             {
                 return string.Empty;
             }
-            
-            byte[] buffer = new byte[fixedLengthClass.LineLength];
-            for (var i = 0; i < buffer.Length;i++)
-            {
-                buffer[i] = (byte)' ';
-            }
+
+            byte[] buffer = GetEmptyBuffer(fixedLengthClass);
 
             foreach (var property in fixedLengthClass.Properties)
             {
                 property.CopyToBuffer(data, buffer);
             }
 
-            result = ASCIIEncoding.ASCII.GetString(buffer).Trim(new char[] { '\0' });
+            result = ASCIIEncoding.ASCII.GetString(buffer);
             return result;
         }
 
-        private static FixedLengthClassInfo GetFixedLengthClassInfo<T>(T data)
+        private static byte[] GetEmptyBuffer(FixedLengthClassInfo fixedLengthClass)
+        {
+            byte[] buffer = new byte[fixedLengthClass.LineLength];
+            for (var i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = (byte)' ';
+            }
+
+            return buffer;
+        }
+
+        private static Dictionary<TypeCode, Func<object, string>> GetFormatters()
+        {
+            var a3DataFormatterType = typeof(IA3DataFormatter);
+
+            var formattersDictionary = a3DataFormatterType.GetTypeInfo().Assembly.GetTypes()
+                .Where(t => t != a3DataFormatterType && a3DataFormatterType.IsAssignableFrom(t))
+                .Select(t => (IA3DataFormatter)Activator.CreateInstance(t))
+                .ToDictionary(i => i.TypeCode, i => i.Formatter);
+
+            return formattersDictionary;
+        }
+
+        private static Dictionary<string, FixedLengthClassInfo> GetFixedLengthClassesInfo(Dictionary<TypeCode, Func<object, string>> formatters)
+        {
+            var a3ModelType = typeof(A3ModelBase);
+
+            var types = a3ModelType.GetTypeInfo().Assembly.GetTypes()
+                .Where(t => a3ModelType != t && a3ModelType.IsAssignableFrom(t));
+
+            var classesInfoDictionary = types.ToDictionary(t => t.Name, t => GetFixedLengthClassInfo(t, formatters));
+
+            return classesInfoDictionary;
+        }
+
+        private static FixedLengthClassInfo GetFixedLengthClassInfo(Type a3ModelType, Dictionary<TypeCode, Func<object, string>> formatters)
         {
             var fixedLengthClassInfo = new FixedLengthClassInfo();
 
-            var properties = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Select(p =>
+            var properties = a3ModelType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Select(p =>
                 new
                 {
                     PropertyInfo = p,
@@ -63,36 +98,27 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
             }
 
             fixedLengthClassInfo.LineLength = properties.Max(p => p.Attribute.Index + p.Attribute.Length) - 1;
+            foreach (var property in properties)
+            {
+                var fixedLengthPropertyInfo = new FixedLengthPropertyInfo
+                {
+                    PropertyInfo = property.PropertyInfo,
+                    FixedLengthInfo = property.Attribute
+                };
 
-            fixedLengthClassInfo.Properties = properties.Select(p => new FixedLengthPropertyInfo {
-                PropertyInfo = p.PropertyInfo,
-                FixedLengthInfo = p.Attribute,
-                StringValueFunction = GetStrFunction(p.PropertyInfo)
-            }).ToList();
+                var typeCode = Type.GetTypeCode(property.PropertyInfo.PropertyType);
+                fixedLengthPropertyInfo.StringValueFunction = formatters.ContainsKey(typeCode) ? formatters[typeCode] : DefaultStringFormatter;
+
+                fixedLengthClassInfo.Properties.Add(fixedLengthPropertyInfo);
+            }
 
 
             return fixedLengthClassInfo;
         }
 
-        private static Func<object, string> GetStrFunction(PropertyInfo property)
+        private static string DefaultStringFormatter(object value)
         {
-            var propertyType = Type.GetTypeCode(property.PropertyType);
-
-            switch (propertyType)
-            {
-                case TypeCode.Decimal:
-                    return (objValue) => { return ((decimal)objValue).ToA3String(); };
-                case TypeCode.Boolean:
-                    return (objValue) => { return ((bool)objValue).ToA3String(); };
-                case TypeCode.DateTime:
-                    return (objValue) => { return ((DateTime)objValue).ToA3String(); };
-                case TypeCode.Int32:
-                    return (objValue) => { return ((int)objValue).ToA3String(); };
-                default:
-                    return (objValue) => { return objValue.ToA3String(); };
-            }
-
-
+            return value.ToString();
         }
 
     }

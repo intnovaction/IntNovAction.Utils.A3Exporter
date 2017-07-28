@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace IntNovAction.Utils.A3Exporter.Helpers
+namespace IntNovAction.Utils.A3Exporter.Models
 {
-    public class FixedLengthPropertyInfo
+    internal class FixedLengthPropertyInfo
     {
         public PropertyInfo PropertyInfo { get; set; }
 

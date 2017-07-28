@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IntNovAction.Utils.A3Exporter.Helpers
+namespace IntNovAction.Utils.A3Exporter.Models
 {
-    public class FixedLengthClassInfo
+    internal class FixedLengthClassInfo
     {
         public int LineLength { get; set; }
 

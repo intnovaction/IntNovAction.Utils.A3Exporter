@@ -1,6 +1,6 @@
 using FluentAssertions;
+using IntNovAction.Utils.A3Exporter.A3Models;
 using IntNovAction.Utils.A3Exporter.Helpers;
-using IntNovAction.Utils.A3Exporter.Models;
 using System;
 using Xunit;
 
