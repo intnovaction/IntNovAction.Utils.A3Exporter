@@ -1,11 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>IntNovAction.A3Exporter</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>IntNovAction</Authors>
+    <Description>Utilidad para realizar exportaciones de datos a A3</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) IntNovAction Global Systems SRL. All rights reserved.</Copyright>
+    <PackageTags>A3 Export</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
   </ItemGroup>
-
 </Project>
