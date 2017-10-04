@@ -48,5 +48,25 @@ namespace IntNovAction.Utils.A3Exporter
         {
             return _writer.WriteLine(cuenta);
         }
+
+        /// <summary>
+        /// Exporta los datos de un apunte sin IVA líneas de texto para el fichero de A3
+        /// </summary>
+        /// <param name="cuenta"></param>
+        /// <returns></returns>
+        public List<string> ExportarApunteSinIVA(ApunteSinIVA apunte)
+        {
+            var apunteContrario = apunte.ObtenerApunteContrario();
+
+            var firstRow = _writer.WriteLine(apunte);
+            var lastRow = _writer.WriteLine(apunteContrario);
+
+            var result = new List<string> {
+                firstRow,
+                lastRow
+            };
+
+            return result;
+        }
     }
 }

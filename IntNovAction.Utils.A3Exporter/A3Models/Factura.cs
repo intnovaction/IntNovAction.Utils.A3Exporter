@@ -80,12 +80,12 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
             linea.CuotaRetencion = Math.Round(linea.BaseImponible * linea.PorcentajeRetencion / 100, 2, MidpointRounding.AwayFromZero);
 
             linea.OperacionSujetaIVA = linea.PorcentajeIVA > 0;
-            linea.TipoLinea = TipoLinea.Ultima;
+            linea.TipoLinea = TipoLineaFactura.Ultima;
             linea.NumeroFactura = this.NumeroFactura;
 
             if (this.Lineas.Count > 0)
             {
-                Lineas[Lineas.Count - 1].TipoLinea = TipoLinea.Intermedia;
+                Lineas[Lineas.Count - 1].TipoLinea = TipoLineaFactura.Intermedia;
             }
 
             Lineas.Add(linea);

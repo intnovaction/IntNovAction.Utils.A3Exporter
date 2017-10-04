@@ -29,13 +29,13 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         public string DescripcionCuenta { get; set; }
 
         [FixedLength(58, 1, FormatType.EnumDesc)]
-        public TipoImporte TipoImporte { get; set; }
+        public TipoImporteFactura TipoImporte { get; set; }
 
         [FixedLength(59, 10)]
         internal string NumeroFactura { get; set; }
 
         [FixedLength(69, 1, FormatType.EnumDesc)]
-        internal TipoLinea TipoLinea { get; set; }
+        internal TipoLineaFactura TipoLinea { get; set; }
 
         [FixedLength(70, 30)]
         public string DescripcionApunte { get; set; }

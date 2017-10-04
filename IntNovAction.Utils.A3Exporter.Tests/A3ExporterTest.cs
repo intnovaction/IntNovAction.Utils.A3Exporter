@@ -8,7 +8,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
 {
     public class A3ExporterTest
     {
-        
+
 
         [Fact]
         public void A3Exporter_Factura()
@@ -30,7 +30,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
                 Fecha = new DateTime(2017, 4, 26),
                 Cuenta = "705100020000",
                 DescripcionCuenta = "SERVICIOS JURIDICOS TEST",
-                TipoImporte = TipoImporte.Cargo,
+                TipoImporte = TipoImporteFactura.Cargo,
                 DescripcionApunte = "(HN)Factura: 2017/1002",
                 BaseImponible = 4022.5M,
                 PorcentajeIVA = 21,
@@ -39,12 +39,13 @@ namespace IntNovAction.Utils.A3Exporter.Tests
 
             factura.AddLineaFactura(linea1);
 
-            var linea2 = new LineaFactura {
+            var linea2 = new LineaFactura
+            {
                 CodigoEmpresa = 135,
                 Fecha = new DateTime(2017, 4, 26),
                 Cuenta = "566010370000",
                 DescripcionCuenta = "Test Nombre cuenta",
-                TipoImporte = TipoImporte.Cargo,
+                TipoImporte = TipoImporteFactura.Cargo,
                 DescripcionApunte = "Suplidos de: 2017/1002",
                 BaseImponible = 650,
                 TipoImpreso = TipoImpreso.Impreso_110_AgrariosDinerarias
@@ -57,7 +58,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
                 Fecha = new DateTime(2017, 4, 26),
                 Cuenta = "561010370000",
                 DescripcionCuenta = "Test Nombre cuenta",
-                TipoImporte = TipoImporte.Abono,
+                TipoImporte = TipoImporteFactura.Abono,
                 DescripcionApunte = "Provisiones de: 2017/1002",
                 BaseImponible = 1763.87M,
                 TipoImpreso = TipoImpreso.Impreso_110_AgrariosDinerarias
@@ -70,7 +71,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
                 Fecha = new DateTime(2017, 4, 26),
                 Cuenta = "430010370000",
                 DescripcionCuenta = "Test Nombre cuenta",
-                TipoImporte = TipoImporte.Cargo,
+                TipoImporte = TipoImporteFactura.Cargo,
                 DescripcionApunte = "Regularizacion de: 2017/1002",
                 BaseImponible = 1113.87M,
                 TipoImpreso = TipoImpreso.Impreso_110_AgrariosDinerarias
@@ -123,6 +124,40 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             var strResult = exporter.ExportarCuentaProveedor(cuentaProveedor);
 
             strResult.Should().BeEquivalentTo(expectedResult);
+        }
+
+
+        [Fact]
+        public void A3Exporter_ApunteSinIVA()
+        {
+
+            var apunteSinIVA = new ApunteSinIVA
+            {
+                CodigoEmpresa = 1,
+                Fecha = new DateTime(2017,7, 19),
+                Cuenta = "43037490",
+                CuentaApunteContrario = "57200004",
+                DescripcionCuenta = "MIGUEL ANGEL LATOS RASCOCARSA",
+                DescripcionCuentaApunteContrario = "123 AACC ACCIONES Y PREFERENTE",
+                TipoImporte = TipoImporte.Haber,
+                ReferenciaDocumento = "2017/1730",
+                DescripcionApunte = "Cobro Fra: 2017/1730",
+                Importe = 7910.98M
+            };
+
+            var expectedResults = new List<string>() {
+                "40000120170719043037490    MIGUEL ANGEL LATOS RASCOCARSA H2017/1730 ICobro Fra: 2017/1730          +0000007910.98                                                                                                                                          NEN",
+                "40000120170719057200004    123 AACC ACCIONES Y PREFERENTED2017/1730 UCobro Fra: 2017/1730          +0000007910.98                                                                                                                                          NEN"
+            };
+
+            var exporter = new A3Exporter();
+            var results = exporter.ExportarApunteSinIVA(apunteSinIVA);
+
+            results.Count.Should().Be(2);
+            results[0].Should().BeEquivalentTo(expectedResults[0]);
+            results[1].Should().BeEquivalentTo(expectedResults[1]);
+
+
         }
     }
 }

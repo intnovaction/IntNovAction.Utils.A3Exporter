@@ -6,13 +6,13 @@ using System.Text;
 namespace IntNovAction.Utils.A3Exporter.A3Models
 {
     /// <summary>
-    /// Tipos de línea de factura
+    /// Tipos de importe
     /// </summary>
-    internal enum TipoLinea
+    public enum TipoImporteFactura
     {
-        [Description("M")]
-        Intermedia = 1,
-        [Description("U")]
-        Ultima = 2
+        [Description("C")]
+        Cargo = 1,
+        [Description("A")]
+        Abono = 2
     }
 }
