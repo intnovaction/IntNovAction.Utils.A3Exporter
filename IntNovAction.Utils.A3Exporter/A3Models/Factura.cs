@@ -8,7 +8,7 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
     /// <summary>
     /// Datos de factura
     /// </summary>
-    public class Factura : A3ModelBase
+    public class Factura : A3ExportableModel
     {
 
         [FixedLength(1, 1)]
@@ -90,6 +90,14 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
 
             Lineas.Add(linea);
         }
-        
+
+        internal override List<A3ModelBase> ObtenerLineas()
+        {
+            var result = new List<A3ModelBase> { this };
+            result.AddRange(this.Lineas);
+            return result;
+
+        }
+
     }
 }

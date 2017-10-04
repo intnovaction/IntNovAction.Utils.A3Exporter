@@ -8,7 +8,7 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
     /// <summary>
     /// Datos de la cuenta de un proveedor
     /// </summary>
-    public class CuentaProveedor : A3ModelBase
+    public class CuentaProveedor : A3ExportableModel
     {
         [FixedLength(1, 1)]
         private int TipoFormato => 3;
@@ -91,5 +91,10 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         [FixedLength(254, 1)]
         private char IndicadorGenerado { get; } = 'S';
 
+        internal override List<A3ModelBase> ObtenerLineas()
+        {
+            var result = new List<A3ModelBase> { this };
+            return result;
+        }
     }
 }

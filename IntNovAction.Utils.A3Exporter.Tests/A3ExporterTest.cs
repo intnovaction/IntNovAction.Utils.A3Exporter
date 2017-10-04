@@ -159,5 +159,64 @@ namespace IntNovAction.Utils.A3Exporter.Tests
 
 
         }
+
+
+        [Fact]
+        public void A3Exporter_VariosApuntes()
+        {
+
+            var apunteSinIVA = new ApunteSinIVA
+            {
+                CodigoEmpresa = 1,
+                Fecha = new DateTime(2017, 7, 19),
+                Cuenta = "43037490",
+                CuentaApunteContrario = "57200004",
+                DescripcionCuenta = "MIGUEL ANGEL LATOS RASCOCARSA",
+                DescripcionCuentaApunteContrario = "123 AACC ACCIONES Y PREFERENTE",
+                TipoImporte = TipoImporte.Haber,
+                ReferenciaDocumento = "2017/1730",
+                DescripcionApunte = "Cobro Fra: 2017/1730",
+                Importe = 7910.98M
+            };
+
+            var cuentaProveedor = new CuentaProveedor
+            {
+                CodigoEmpresa = 135,
+                Fecha = new DateTime(2017, 01, 01),
+                Cuenta = "430010010000",
+                DescripcionCuenta = "DESCRIPCION CUENTA PROVEED",
+                ActualizarSaldoInicial = false,
+                NIF = "B12x52671",
+                ViaPublica = "Direaccion test 132, plaza 123",
+                Municipio = "MUNIC",
+                CodigoPostal = "32619",
+                Provincia = "Ourense",
+                Telefono = "988888888",
+                Fax = "988777777"
+            };
+
+            var expectedResults = new List<string>() {
+                "40000120170719043037490    MIGUEL ANGEL LATOS RASCOCARSA H2017/1730 ICobro Fra: 2017/1730          +0000007910.98                                                                                                                                          NEN",
+                "40000120170719057200004    123 AACC ACCIONES Y PREFERENTED2017/1730 UCobro Fra: 2017/1730          +0000007910.98                                                                                                                                          NEN",
+                "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                                  ES"
+            };
+
+            var exporter = new A3Exporter();
+            var apuntes = new List<A3ExportableModel> {
+                apunteSinIVA,
+                cuentaProveedor
+            };
+
+            var results = exporter.ExportarEntidadesA3(apuntes);
+
+            results.Count.Should().Be(3);
+            results[0].Should().BeEquivalentTo(expectedResults[0]);
+            results[1].Should().BeEquivalentTo(expectedResults[1]);
+            results[2].Should().BeEquivalentTo(expectedResults[2]);
+
+
+        }
+
+
     }
 }

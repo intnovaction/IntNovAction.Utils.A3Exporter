@@ -24,7 +24,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
         {
             var result = string.Empty;
 
-            var typeName = typeof(T).Name;
+            var typeName = data.GetType().Name;
 
             var fixedLengthClass = _fixedLengthClassDictionary[typeName];
 

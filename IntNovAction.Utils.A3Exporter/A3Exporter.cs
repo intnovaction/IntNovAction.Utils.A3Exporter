@@ -2,6 +2,7 @@
 using IntNovAction.Utils.A3Exporter.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("IntNovAction.Utils.A3Exporter.InternalTests")]
@@ -14,10 +15,25 @@ namespace IntNovAction.Utils.A3Exporter
     {
         private FixedLengthWriter _writer;
 
+        
+
         public A3Exporter()
         {
             this._writer = new FixedLengthWriter();
         }
+
+        public List<string> ExportarEntidadesA3(List<A3ExportableModel> entidades)
+        {
+            var result = new List<string>();
+
+            foreach (var entidad in entidades)
+            {
+                result.AddRange(ExportarEntidadA3(entidad));
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Exporta una factura con sus líneas a un conjunto de líneas de texto para el fichero de A3
         /// </summary>
@@ -25,18 +41,7 @@ namespace IntNovAction.Utils.A3Exporter
         /// <returns>líneas para incluir en el fichero de A3</returns>
         public List<string> ExportarFactura(Factura factura)
         {
-            var result = new List<string>();
-
-            var strFactura = _writer.WriteLine(factura);
-            result.Add(strFactura);
-
-            foreach (var lineaFactura in factura.Lineas)
-            {
-                var strLinea = _writer.WriteLine(lineaFactura);
-                result.Add(strLinea);
-            }
-
-            return result;
+            return ExportarEntidadA3(factura);
         }
 
         /// <summary>
@@ -46,7 +51,7 @@ namespace IntNovAction.Utils.A3Exporter
         /// <returns></returns>
         public string ExportarCuentaProveedor(CuentaProveedor cuenta)
         {
-            return _writer.WriteLine(cuenta);
+            return ExportarEntidadA3(cuenta).FirstOrDefault();
         }
 
         /// <summary>
@@ -55,18 +60,22 @@ namespace IntNovAction.Utils.A3Exporter
         /// <param name="cuenta"></param>
         /// <returns></returns>
         public List<string> ExportarApunteSinIVA(ApunteSinIVA apunte)
+        {            
+            return ExportarEntidadA3(apunte);
+        }
+
+        private List<string> ExportarEntidadA3(A3ExportableModel entidadA3Exportable)
         {
-            var apunteContrario = apunte.ObtenerApunteContrario();
+            var result = new List<string>();
 
-            var firstRow = _writer.WriteLine(apunte);
-            var lastRow = _writer.WriteLine(apunteContrario);
-
-            var result = new List<string> {
-                firstRow,
-                lastRow
-            };
+            var lineas = entidadA3Exportable.ObtenerLineas();
+            foreach (var linea in lineas)
+            {
+                result.Add(_writer.WriteLine(linea));
+            }
 
             return result;
+
         }
     }
 }

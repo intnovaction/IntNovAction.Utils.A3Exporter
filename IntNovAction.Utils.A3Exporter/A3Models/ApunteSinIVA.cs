@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IntNovAction.Utils.A3Exporter.A3Models
 {
-    public class ApunteSinIVA : A3ModelBase
+    public class ApunteSinIVA : A3ExportableModel
     {
         [FixedLength(1, 1)]
         private int TipoFormato => 4;
@@ -52,7 +52,17 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         public string CuentaApunteContrario { get; set; }
         public string DescripcionCuentaApunteContrario { get; set; }
 
-        internal ApunteSinIVA ObtenerApunteContrario()
+        internal override List<A3ModelBase> ObtenerLineas()
+        {
+            var lineas = new List<A3ModelBase> {
+                this,
+                ObtenerApunteContrario()
+            };
+
+            return lineas;
+        }
+
+        private ApunteSinIVA ObtenerApunteContrario()
         {
             var apunteContrario = (ApunteSinIVA)this.MemberwiseClone();
 
