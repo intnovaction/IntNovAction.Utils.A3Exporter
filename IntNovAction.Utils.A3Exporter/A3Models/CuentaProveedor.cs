@@ -22,7 +22,7 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         [FixedLength(15, 1)]
         private char TipoRegistro => 'C';
 
-        [FixedLength(16, 12, PaddingType.Right, '0')]
+        [FixedLength(16, 12, PaddingType.Right, ' ')]
         public string Cuenta { get; set; }
 
         [FixedLength(28, 30)]
