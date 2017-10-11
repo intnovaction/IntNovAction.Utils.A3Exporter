@@ -99,6 +99,6 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         private char Moneda { get; } = 'E';
 
         [FixedLength(254, 1)]
-        private char IndicadorGenerado { get; } = 'S';
+        private char IndicadorGenerado { get; } = 'N';
     }
 }

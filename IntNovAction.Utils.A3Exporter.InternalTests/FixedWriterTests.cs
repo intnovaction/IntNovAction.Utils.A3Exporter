@@ -31,7 +31,7 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
                 Importe = 4867.23M
             };  
 
-            var expectedResult = "300135201704261430010370000Sociedad Cooperativa TEST1234 12017/1002 IFactura: 2017/1002            +0000004867.23                                                                                                                                           ES";
+            var expectedResult = "300135201704261430010370000Sociedad Cooperativa TEST1234 12017/1002 IFactura: 2017/1002            +0000004867.23                                                                                                                                           EN";
 
             var strResult = _writer.WriteLine(cabeceraFactura);
 
@@ -59,7 +59,7 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
 
             };
 
-            var expectedResult = "300135201704269705100020000SERVICIOS JURIDICOS TEST123   C2017/1002 M(HN)Factura: 2017/1002        01+0000004022.5021.00+0000000844.7300.00+0000000000.0000.00+0000000000.0001S                                                                            NES";
+            var expectedResult = "300135201704269705100020000SERVICIOS JURIDICOS TEST123   C2017/1002 M(HN)Factura: 2017/1002        01+0000004022.5021.00+0000000844.7300.00+0000000000.0000.00+0000000000.0001S                                                                            NEN";
 
             var strResult = _writer.WriteLine(lineaFactura);
 
@@ -86,7 +86,7 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
 
             };
 
-            var expectedResult = "300135201704269561010370000Sociedad Cooperativa TEST1234 A2017/1002 MProvisiones de: 2017/1002     01+0000001763.8700.00+0000000000.0000.00+0000000000.0000.00+0000000000.0007N                                                                            NES";
+            var expectedResult = "300135201704269561010370000Sociedad Cooperativa TEST1234 A2017/1002 MProvisiones de: 2017/1002     01+0000001763.8700.00+0000000000.0000.00+0000000000.0000.00+0000000000.0007N                                                                            NEN";
             var strResult = _writer.WriteLine(lineaFactura);
 
             strResult.Should().BeEquivalentTo(expectedResult);
