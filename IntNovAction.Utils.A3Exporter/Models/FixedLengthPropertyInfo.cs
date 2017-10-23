@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using IntNovAction.Utils.A3Exporter.DataFormatters;
 using IntNovAction.Utils.A3Exporter.A3Models;
+using IntNovAction.Utils.A3Exporter.Helpers;
 
 namespace IntNovAction.Utils.A3Exporter.Models
 {
@@ -35,6 +36,7 @@ namespace IntNovAction.Utils.A3Exporter.Models
                     strValue.PadRight(this.FixedLengthInfo.Length, this.FixedLengthInfo.PaddingChar);
             }
 
+            strValue = ASCIIReplacer.Replace(strValue);
             var byteValue = ASCIIEncoding.ASCII.GetBytes(strValue);
             byteValue.CopyTo(buffer, this.FixedLengthInfo.Index - 1);
 

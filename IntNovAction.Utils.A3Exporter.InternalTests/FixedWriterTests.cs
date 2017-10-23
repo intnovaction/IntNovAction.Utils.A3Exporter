@@ -25,13 +25,13 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
                 CodigoEmpresa = 135,
                 Fecha = new DateTime(2017, 4, 26),
                 Cuenta = "430010370000",                
-                DescripcionCuenta = "Sociedad Cooperativa TEST1234",
+                DescripcionCuenta = "Sociedad Coóperativa TEST123Ñ",
                 TipoFactura = TipoFactura.Ventas,
                 DescripcionApunte = "Factura: 2017/1002",                               
                 Importe = 4867.23M
             };  
 
-            var expectedResult = "300135201704261430010370000Sociedad Cooperativa TEST1234 12017/1002 IFactura: 2017/1002            +0000004867.23                                                                                                                                           EN";
+            var expectedResult = "300135201704261430010370000Sociedad Cooperativa TEST123N 12017/1002 IFactura: 2017/1002            +0000004867.23                                                                                                                                           EN";
 
             var strResult = _writer.WriteLine(cabeceraFactura);
 
@@ -47,7 +47,7 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
                 CodigoEmpresa = 135,
                 Fecha = new DateTime(2017, 4, 26),
                 Cuenta = "705100020000",
-                DescripcionCuenta = "SERVICIOS JURIDICOS TEST123",
+                DescripcionCuenta = "SERVICIOS JURÍDICOS TEST123",
                 TipoImporte = TipoImporteFactura.Cargo,
                 NumeroFactura = "2017/1002",
                 TipoLinea = TipoLineaFactura.Intermedia,
@@ -101,7 +101,7 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
                 CodigoEmpresa = 135,
                 Fecha = new DateTime(2017, 01, 01),
                 Cuenta = "430010010000",
-                DescripcionCuenta = "DESCRIPCION CUENTA PROVEED",
+                DescripcionCuenta = "DESCRIPCIÓN CUENTA PROVEED",
                 ActualizarSaldoInicial = false,
                 NIF = "B12x52671",
                 ViaPublica = "Direaccion test 132, plaza 123",
