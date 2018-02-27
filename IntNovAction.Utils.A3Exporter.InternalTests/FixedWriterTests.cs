@@ -112,7 +112,8 @@ namespace IntNovAction.Utils.A3Exporter.InternalTests
                 Fax = "988777777"
             };
 
-            var expectedResult = "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                                  ES";
+            var expectedResult = "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                               R  EN";
+            
             var strResult = _writer.WriteLine(cuentaProveedor);
 
             strResult.Should().BeEquivalentTo(expectedResult);

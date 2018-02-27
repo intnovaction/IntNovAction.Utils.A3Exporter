@@ -85,11 +85,14 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         [FixedLength(238, 1)]
         public bool? CriterioCaja { get; set; }
 
+        [FixedLength(250, 1)]
+        public char Reserva { get; set; } = 'R';
+
         [FixedLength(253, 1)]
         private char Moneda { get; } = 'E';
 
         [FixedLength(254, 1)]
-        private char IndicadorGenerado { get; } = 'S';
+        public char IndicadorGenerado { get; set; } = 'N';
 
         internal override List<A3ModelBase> ObtenerLineas()
         {

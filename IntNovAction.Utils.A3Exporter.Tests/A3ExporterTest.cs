@@ -118,7 +118,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
                 Fax = "988777777"
             };
 
-            var expectedResult = "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                                  ES";
+            var expectedResult = "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                               R  EN";
 
             var exporter = new A3Exporter();
             var strResult = exporter.ExportarCuentaProveedor(cuentaProveedor);
@@ -198,7 +198,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
             var expectedResults = new List<string>() {
                 "40000120170719043037490    MIGUEL ANGEL LATOS RASCOCARSA H2017/1730 ICobro Fra: 2017/1730          +0000007910.98                                                                                                                                          NEN",
                 "40000120170719057200004    123 AACC ACCIONES Y PREFERENTED2017/1730 UCobro Fra: 2017/1730          +0000007910.98                                                                                                                                          NEN",
-                "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                                  ES"
+                "30013520170101C430010010000DESCRIPCION CUENTA PROVEED    N+0000000000.00     B12x52671       Direaccion test 132, plaza 123           MUNIC               32619Ourense           988888888       988777777                                               R  EN"
             };
 
             var exporter = new A3Exporter();
