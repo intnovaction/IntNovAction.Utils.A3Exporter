@@ -11,7 +11,7 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
     public class LineaFactura : A3ModelBase
     {
         [FixedLength(1, 1)]
-        private int TipoFormato => 3;
+        private int TipoFormato => 5;
 
         [FixedLength(2, 5, PaddingType.Left, '0')]
         public int CodigoEmpresa { get; set; }
@@ -95,10 +95,10 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         [FixedLength(252, 1)]
         public bool RegistroAnalitico { get; set; } = false;
 
-        [FixedLength(253, 1)]
+        [FixedLength(509, 1)]
         private char Moneda { get; } = 'E';
 
-        [FixedLength(254, 1)]
+        [FixedLength(510, 1)]
         private char IndicadorGenerado { get; } = 'N';
     }
 }

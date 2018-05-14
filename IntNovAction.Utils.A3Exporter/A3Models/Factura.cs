@@ -10,9 +10,10 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
     /// </summary>
     public class Factura : A3ExportableModel
     {
+        private const int DESC_FACTURA_MAX_LENGTH = 30;
 
         [FixedLength(1, 1)]
-        private int TipoFormato => 3;
+        private int TipoFormato => 5;
 
         [FixedLength(2, 5, PaddingType.Left, '0')]
         public int CodigoEmpresa { get; set; }
@@ -38,7 +39,7 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         [FixedLength(69, 1)]
         private char LineaApunte { get; } = 'I';
 
-        [FixedLength(70, 30)]
+        [FixedLength(70, DESC_FACTURA_MAX_LENGTH)]
         public string DescripcionApunte { get; set; }
 
         [FixedLength(100, 14)]
@@ -59,10 +60,13 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         [FixedLength(245, 8)]
         public DateTime? FechaFactura { get; set; }
 
-        [FixedLength(253, 1)]
+        [FixedLength(253, 60)]
+        private string NumeroFacturaAmpliadoSII => NumeroFactura;
+
+        [FixedLength(509, 1)]
         private char Moneda { get; } = 'E';
 
-        [FixedLength(254, 1)]
+        [FixedLength(510, 1)]
         private char IndicadorGenerado { get; } = 'N';
 
         internal List<LineaFactura> Lineas { get; set; }
@@ -93,8 +97,19 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
 
         internal override List<A3ModelBase> ObtenerLineas()
         {
+
             var result = new List<A3ModelBase> { this };
             result.AddRange(this.Lineas);
+
+            if (this.DescripcionApunte.Length > DESC_FACTURA_MAX_LENGTH)
+            {
+                result.Add(new DescripcionFactura {
+                    CodigoEmpresa = this.CodigoEmpresa,
+                    Descripcion = this.DescripcionApunte,
+                    Fecha = this.Fecha
+                });
+            }
+
             return result;
 
         }
