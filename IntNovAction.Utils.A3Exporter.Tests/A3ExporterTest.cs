@@ -34,7 +34,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
                 DescripcionApunte = "(HN)Factura: 2018/9000",
                 BaseImponible = 4022.5M,
                 PorcentajeIVA = 21,
-                TipoImpreso = TipoImpreso.Impreso_347
+                TipoImpreso = TipoImpreso.Impreso_347,
             };
 
             factura.AddLineaFactura(linea1);
@@ -228,7 +228,7 @@ namespace IntNovAction.Utils.A3Exporter.Tests
                 TipoImporte = TipoImporte.Haber,
                 ReferenciaDocumento = "2017/1730",
                 DescripcionApunte = "Cobro Fra: 2017/1730",
-                Importe = 1000
+                Importe = 1000,
             };
 
             var expectedResults = new List<string>() {
