@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>IntNovAction.A3Exporter</PackageId>
-    <PackageVersion>1.4.1</PackageVersion>
+    <PackageVersion>1.4.2</PackageVersion>
     <Authors>IntNovAction</Authors>
     <Description>Utilidad para realizar exportaciones de datos a A3</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Adaptacion a la V5 de A3</PackageReleaseNotes>
     <Copyright>Copyright 2018 (c) IntNovAction Global Systems SRL. All rights reserved.</Copyright>
     <PackageTags>A3 Export</PackageTags>
-    <Version>1.4.1</Version>
+    <Version>1.4.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
