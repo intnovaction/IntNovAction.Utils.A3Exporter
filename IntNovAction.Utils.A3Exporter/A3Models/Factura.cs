@@ -83,7 +83,7 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
             linea.CuotaRecargo = Math.Round(linea.BaseImponible * linea.PorcentajeRecargo / 100, 2, MidpointRounding.AwayFromZero);
             linea.CuotaRetencion = Math.Round(linea.BaseImponible * linea.PorcentajeRetencion / 100, 2, MidpointRounding.AwayFromZero);
 
-            linea.OperacionSujetaIVA = linea.EsRegularización ?  false : true;
+            linea.OperacionSujetaIVA = linea.EsRegularizacion ?  false : true;
             linea.TipoLinea = TipoLineaFactura.Ultima;
             linea.NumeroFactura = this.NumeroFactura;
 

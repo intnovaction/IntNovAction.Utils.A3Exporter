@@ -105,6 +105,6 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         /// <summary>
         /// Indica q es una linea de regularización (para hacer que cuadre en caso de meter suplidos o provisiones) y que se pone para igualar a cero.
         /// </summary>
-        public bool EsRegularización { get; set; } = false;
+        public bool EsRegularizacion { get; set; } = false;
     }
 }

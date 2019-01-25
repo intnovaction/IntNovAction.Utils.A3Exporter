@@ -10,7 +10,7 @@
     <PackageReleaseNotes>Adaptacion a la V5 de A3</PackageReleaseNotes>
     <Copyright>Copyright 2018 (c) IntNovAction Global Systems SRL. All rights reserved.</Copyright>
     <PackageTags>A3 Export</PackageTags>
-    <Version>1.4.2</Version>
+    <Version>1.4.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
