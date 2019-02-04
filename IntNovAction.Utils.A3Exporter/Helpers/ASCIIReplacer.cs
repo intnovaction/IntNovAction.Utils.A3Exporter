@@ -8,7 +8,7 @@ namespace IntNovAction.Utils.A3Exporter.Helpers
     {
         private static Dictionary<char, List<char>> _replacements = new Dictionary<char, List<char>> {
             {'a', new List<char> { 'á', 'à', 'ä', 'â', 'ª' } },
-            {'A', new List<char> { 'A', 'A', 'A', 'A' } },
+            {'A', new List<char> { 'Á', 'À', 'Ä', 'Â' } },
             {'e', new List<char>{ 'é', 'è', 'ë', 'ê' } },
             {'E', new List<char>{ 'É', 'È', 'Ê', 'Ë' } },
             {'i', new List<char>{ 'í', 'ì', 'ï', 'î' } },
