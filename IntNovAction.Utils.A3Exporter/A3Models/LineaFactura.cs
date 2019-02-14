@@ -68,7 +68,7 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         public TipoImpreso TipoImpreso { get; set; } = TipoImpreso.Impreso_347;
 
         [FixedLength(175, 1)]
-        internal bool OperacionSujetaIVA { get; set; }
+        public bool OperacionSujetaIVA { get; set; } = true;
 
         [FixedLength(176, 1)]
         public bool? AfectaModelo415 { get; set; }
@@ -101,10 +101,5 @@ namespace IntNovAction.Utils.A3Exporter.A3Models
         [FixedLength(510, 1)]
         private char IndicadorGenerado { get; } = 'N';
 
-
-        /// <summary>
-        /// Indica q es una linea de regularización (para hacer que cuadre en caso de meter suplidos o provisiones) y que se pone para igualar a cero.
-        /// </summary>
-        public bool EsRegularizacion { get; set; } = false;
     }
 }
